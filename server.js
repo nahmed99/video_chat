@@ -33,6 +33,13 @@ io.on('connection', socket => {
       // Send a message to the room that user has joined
       // socket.to(roomId).broadcast.emit('user-connected', userId)  - This one does NOT work!!! Using the line below:
       socket.broadcast.to(roomId).emit("user-connected", userId)
+
+
+      // When user disconnects from the 'call'
+      socket.on('disconnect', () => {
+         socket.broadcast.to(roomId).emit("user-disconnected", userId)
+      });
+
    });
 
 });
